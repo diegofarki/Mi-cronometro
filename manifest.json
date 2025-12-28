@@ -1,0 +1,16 @@
+{
+  "name": "Kitchen Master FaRki",
+  "short_name": "FaRki Timer",
+  "description": "Estación de tiempo profesional para cocina",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#ff6d00",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3658/3658516.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

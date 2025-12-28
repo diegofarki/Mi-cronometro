@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitchen Station Extreme - By FaRki</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ff6d00">
+</head>
+<body class="kitchen-env" id="body-env">
+
+    <header class="master-header">
+        <div class="header-left"><span class="label">STATUS</span><div id="status-general">SYSTEM ONLINE</div></div>
+        <div class="header-center"><span class="label">HORA ACTUAL</span><div id="current-clock">00:00:00</div></div>
+        <div class="header-right"><button id="fullscreen-btn">MODO FULL</button></div>
+    </header>
+
+    <nav class="section-nav">
+        <button class="nav-btn active" onclick="openSection('sec-cronometro')">CRONÓMETRO</button>
+        <button class="nav-btn" id="btn-regresiva" onclick="openSection('sec-regresiva')">CUENTA REGRESIVA</button>
+    </nav>
+
+    <main class="control-panel">
+        <section id="sec-cronometro" class="content-section active">
+            <div class="display-container"><div class="retro-display big" id="display">00:00:00.00</div></div>
+            <div class="keyboard-map"><kbd>Inicio</kbd> Start | <kbd>Fin</kbd> Stop | <kbd>Espacio</kbd> Reset+Go</div>
+        </section>
+
+        <section id="sec-regresiva" class="content-section">
+            <div class="row-layout">
+                <div class="display-container"><div class="retro-display big" id="cd-display">00:00:00</div></div>
+                <div class="cooking-inputs">
+                    <div class="input-box"><label>HORAS</label><input type="number" id="cd-h" value="0"></div>
+                    <div class="input-box"><label>MIN</label><input type="number" id="cd-m" value="0"></div>
+                    <div class="input-box"><label>SEG</label><input type="number" id="cd-s" value="0"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="farki-signature">By FaRki</div>
+    <audio id="alarm-sound" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" loop></audio>
+
+    <script>
+        // Registro de la aplicación web
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js');
+        }
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
