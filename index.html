@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kitchen Station Extreme - By FaRki</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#ff6d00">
@@ -11,30 +12,62 @@
 <body class="kitchen-env" id="body-env">
 
     <header class="master-header">
-        <div class="header-left"><span class="label">STATUS</span><div id="status-general">SYSTEM ONLINE</div></div>
-        <div class="header-center"><span class="label">HORA ACTUAL</span><div id="current-clock">00:00:00</div></div>
-        <div class="header-right"><button id="fullscreen-btn">MODO FULL</button></div>
+        <div class="header-left">
+            <span class="label">STATUS</span>
+            <div id="status-general">SYSTEM ONLINE</div>
+        </div>
+        <div class="header-center">
+            <span class="label">HORA ACTUAL</span>
+            <div id="current-clock">00:00:00</div>
+        </div>
+        <div class="header-right">
+            <button id="fullscreen-btn"><i class="fas fa-expand"></i></button>
+        </div>
     </header>
 
     <nav class="section-nav">
-        <button class="nav-btn active" onclick="openSection('sec-cronometro')">CRONÓMETRO</button>
-        <button class="nav-btn" id="btn-regresiva" onclick="openSection('sec-regresiva')">CUENTA REGRESIVA</button>
+        <button class="nav-btn active" onclick="openSection(event, 'sec-cronometro')">
+            <i class="fas fa-stopwatch"></i> CRONÓMETRO
+        </button>
+        <button class="nav-btn" id="btn-regresiva" onclick="openSection(event, 'sec-regresiva')">
+            <i class="fas fa-hourglass-half"></i> CUENTA REGRESIVA
+        </button>
     </nav>
 
     <main class="control-panel">
         <section id="sec-cronometro" class="content-section active">
-            <div class="display-container"><div class="retro-display big" id="display">00:00:00.00</div></div>
-            <div class="keyboard-map"><kbd>Inicio</kbd> Start | <kbd>Fin</kbd> Stop | <kbd>Espacio</kbd> Reset+Go</div>
+            <div class="display-container">
+                <div class="retro-display big" id="display">00:00:00.00</div>
+            </div>
+            
+            <div class="ui-controls">
+                <button class="ctrl-btn start" onclick="startCron()"><i class="fas fa-play"></i></button>
+                <button class="ctrl-btn pause" onclick="stopCron()"><i class="fas fa-pause"></i></button>
+                <button class="ctrl-btn reset" onclick="resetCron()"><i class="fas fa-undo"></i></button>
+            </div>
+
+            <div class="keyboard-map">
+                <kbd>Inicio</kbd> Start | <kbd>Fin</kbd> Stop | <kbd>Espacio</kbd> Reset+Go
+            </div>
         </section>
 
         <section id="sec-regresiva" class="content-section">
             <div class="row-layout">
-                <div class="display-container"><div class="retro-display big" id="cd-display">00:00:00</div></div>
-                <div class="cooking-inputs">
-                    <div class="input-box"><label>HORAS</label><input type="number" id="cd-h" value="0"></div>
-                    <div class="input-box"><label>MIN</label><input type="number" id="cd-m" value="0"></div>
-                    <div class="input-box"><label>SEG</label><input type="number" id="cd-s" value="0"></div>
+                <div class="display-container">
+                    <div class="retro-display big" id="cd-display">00:00:00</div>
                 </div>
+                
+                <div class="cooking-inputs">
+                    <div class="input-box"><label>HORAS</label><input type="number" id="cd-h" value="0" min="0"></div>
+                    <div class="input-box"><label>MIN</label><input type="number" id="cd-m" value="0" min="0" max="59"></div>
+                    <div class="input-box"><label>SEG</label><input type="number" id="cd-s" value="0" min="0" max="59"></div>
+                </div>
+            </div>
+
+            <div class="ui-controls">
+                <button class="ctrl-btn start" onclick="startCD()"><i class="fas fa-play"></i></button>
+                <button class="ctrl-btn stop-alarm" onclick="stopCD()"><i class="fas fa-stop"></i></button>
+                <button class="ctrl-btn reset" onclick="resetCD()"><i class="fas fa-trash"></i></button>
             </div>
         </section>
     </main>
@@ -43,7 +76,6 @@
     <audio id="alarm-sound" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" loop></audio>
 
     <script>
-        // Registro de la aplicación web
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('./sw.js');
         }
